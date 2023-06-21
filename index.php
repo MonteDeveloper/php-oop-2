@@ -1,3 +1,11 @@
+<?php
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+
+include 'db.php';
+?>
+
 <!doctype html>
 <html lang='en'>
 
@@ -11,9 +19,31 @@
     <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65' crossorigin='anonymous'>
 </head>
 
-<body class="bg-dark text-white">
+<body class="bg-dark">
     <div id="app" class="container">
-        {{ message }}
+        <div class="d-flex flex-wrap gap-3 justify-content-center">
+            <?php
+            foreach ($products as $product) {
+            ?>
+                <div class="card" style="width: 18rem;">
+                    <div class="ratio ratio-1x1">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <img src="<?= $product->getImagePath() ?>" class="img-fluid mh-100" alt="...">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $product->getName() ?></h5>
+                        <p class="card-text"><?= $product->getDescription() ?></p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><?= $product->getCategory()->getName() ?></li>
+                        <li class="list-group-item"><?= $product->getPrice() ?></li>
+                    </ul>
+                </div>
+
+
+            <?php } ?>
+        </div>
     </div>
 
     <script src="./main.js"></script>

@@ -1,5 +1,7 @@
 <?php
 
+include 'product.php';
+
 class Food extends Product {
     private $expirationDate;
 
