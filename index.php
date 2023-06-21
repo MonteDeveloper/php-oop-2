@@ -21,27 +21,28 @@ include 'db.php';
 
 <body class="bg-dark">
     <div id="app" class="container">
-        <div class="d-flex flex-wrap gap-3 justify-content-center">
+        <div class="d-flex flex-wrap justify-content-center">
             <?php
             foreach ($products as $product) {
             ?>
-                <div class="card" style="width: 18rem;">
-                    <div class="ratio ratio-1x1">
-                        <div class="d-flex align-items-center justify-content-center">
-                            <img src="<?= $product->getImagePath() ?>" class="img-fluid mh-100" alt="...">
+                <div class="p-3 col-4">
+                    <div class="card h-100 w-100 text-center" style="width: 18rem;">
+                        <div class="ratio ratio-1x1">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <img src="<?= $product->getImagePath() ?>" class="img-fluid mh-100" alt="...">
+                            </div>
                         </div>
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $product->getName() ?></h5>
+                            <p class="card-text"><?= $product->getDescription() ?></p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><?= $product->getCategory()->getName() ?></li>
+                            <li class="list-group-item"><?= $product->getPrice() ?></li>
+                        </ul>
+                        <button class="btn btn-primary m-3">AGGIUNGI AL CARRELLO</button>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $product->getName() ?></h5>
-                        <p class="card-text"><?= $product->getDescription() ?></p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><?= $product->getCategory()->getName() ?></li>
-                        <li class="list-group-item"><?= $product->getPrice() ?></li>
-                    </ul>
                 </div>
-
-
             <?php } ?>
         </div>
     </div>
