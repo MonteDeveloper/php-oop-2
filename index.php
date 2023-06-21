@@ -20,30 +20,48 @@ include 'db.php';
 </head>
 
 <body class="bg-dark">
-    <div id="app" class="container">
-        <div class="d-flex flex-wrap justify-content-center">
-            <?php
-            foreach ($products as $product) {
-            ?>
-                <div class="p-3 col-4">
-                    <div class="card h-100 w-100 text-center" style="width: 18rem;">
-                        <div class="ratio ratio-1x1">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <img src="<?= $product->getImagePath() ?>" class="img-fluid mh-100" alt="...">
+    <div id="app">
+        <div class="container">
+            <div class="d-flex flex-wrap justify-content-center">
+                <?php
+                foreach ($products as $product) {
+                ?>
+                    <div class="p-3 col-4">
+                        <div class="card h-100 w-100 text-center" style="width: 18rem;">
+                            <div class="ratio ratio-1x1">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <img src="<?= $product->getImagePath() ?>" class="img-fluid mh-100" alt="...">
+                                </div>
                             </div>
+                            <div class="card-body">
+                                <h5 class="card-title"><?= $product->getName() ?></h5>
+                                <p class="card-text"><?= $product->getDescription() ?></p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><?= $product->getCategory()->getName() ?></li>
+                                <li class="list-group-item"><?= $product->getPrice() ?></li>
+                            </ul>
+                            <button class="btn btn-primary m-3" @click="addCart('<?= $product->getName() ?>')">AGGIUNGI AL CARRELLO</button>
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $product->getName() ?></h5>
-                            <p class="card-text"><?= $product->getDescription() ?></p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><?= $product->getCategory()->getName() ?></li>
-                            <li class="list-group-item"><?= $product->getPrice() ?></li>
-                        </ul>
-                        <button class="btn btn-primary m-3">AGGIUNGI AL CARRELLO</button>
                     </div>
-                </div>
-            <?php } ?>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="fixed-top container p-3 vh-100 d-flex justify-content-center align-items-end pe-none">
+            <div class="btn-group dropup">
+                <button class="btn btn-success position-relative rounded" data-bs-toggle="dropdown" aria-expanded="false" :class="{'pe-auto' : cartList.length}">
+                    CARRELLO
+                    <span v-show="cartList.length" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{totalCartQuantity}}
+                    </span>
+                </button>
+                <ul class="dropdown-menu p-3 w-100">
+                    <li v-for="(product,index) in cartList">
+                        {{product.quantity}} {{product.name}}
+                        <hr v-if="index < cartList.length - 1">
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
