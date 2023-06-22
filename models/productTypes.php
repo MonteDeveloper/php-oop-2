@@ -21,11 +21,15 @@ class Food extends Product {
 
 class Toy extends Product {
     private $minAge;
-    private $material;
+    use PhysicalObject;
 
-    public function __construct($name, $price, $description, $category, $imagePath, $minAge, $material) {
+    public function __construct($name, $price, $description, $category, $imagePath, $minAge, $x, $y, $z, $weight, $material, $color) {
         parent::__construct($name, $price, $description, $category, $imagePath);
         $this->minAge = $minAge;
+        $this->setSize($x, $y, $z);
+        $this->setWeight($weight);
+        $this->setMaterial($material);
+        $this->setColor($color);
     }
 
     public function getMinAge() {
@@ -35,32 +39,32 @@ class Toy extends Product {
     public function setMinAge($minAge) {
         $this->minAge = $minAge;
     }
-
-    public function getMaterial() {
-        return $this->material;
-    }
-
-    public function setMaterial($material) {
-        $this->material = $material;
-    }
 }
 
 class Collar extends Product {
+    use PhysicalObject;
+
+    public function __construct($name, $price, $description, $category, $imagePath, $x, $y, $z, $weight, $material, $color) {
+        parent::__construct($name, $price, $description, $category, $imagePath);
+        $this->setSize($x, $y, $z);
+        $this->setWeight($weight);
+        $this->setMaterial($material);
+        $this->setColor($color);
+    }
+}
+
+trait PhysicalObject {
+    private $weight;
+    private $material;
     private $size;
     private $color;
-
-    public function __construct($name, $price, $description, $category, $imagePath, $size, $color) {
-        parent::__construct($name, $price, $description, $category, $imagePath);
-        $this->size = $size;
-        $this->color = $color;
-    }
 
     public function getSize() {
         return $this->size;
     }
 
-    public function setSize($size) {
-        $this->size = $size;
+    public function setSize($x, $y, $z) {
+        $this->size = [$x, $y, $z];
     }
 
     public function getColor() {
@@ -69,6 +73,22 @@ class Collar extends Product {
 
     public function setColor($color) {
         $this->color = $color;
+    }
+
+    public function getWeight() {
+        return $this->weight;
+    }
+
+    public function setWeight($weight) {
+        $this->weight = $weight;
+    }
+
+    public function getMaterial() {
+        return $this->material;
+    }
+
+    public function setMaterial($material) {
+        $this->material = $material;
     }
 }
 

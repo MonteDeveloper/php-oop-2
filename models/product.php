@@ -9,9 +9,9 @@ class Product {
 
     public function __construct($name, $price, $description, $category, $imagePath) {
         $this->name = $name;
-        $this->price = $price;
+        $this->setPrice($price);
         $this->description = $description;
-        $this->category = $category;
+        $this->setCategory($category);
         $this->imagePath = $imagePath;
     }
 
@@ -28,8 +28,12 @@ class Product {
     }
 
     public function setPrice($price) {
+        if (!is_numeric($price)) {
+            throw new Exception("Il valore del prezzo deve essere un numero.");
+        }
+        
         $this->price = $price;
-    }
+    }    
 
     public function getDescription() {
         return $this->description;
